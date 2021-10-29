@@ -37,7 +37,7 @@ namespace CopyDirectory.Functions
             }
         }
 
-        public async Task Copy(string targetDirectory, IDisplay display, bool overwrite = true)
+        public async Task Copy(string targetDirectory, ILogger display, bool overwrite = true)
         {
             if (Directory.Exists(targetDirectory) && overwrite)
             {
@@ -71,7 +71,7 @@ namespace CopyDirectory.Functions
             }
         }
 
-        public void Empty(IDisplay display)
+        public void Empty(ILogger display)
         {
             foreach (Source subDirectory in SubDirectories)
             {
