@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1DD0853D-790B-417C-84B4-191BB412D6DB}</ProjectGuid>
+    <ProjectGuid>{485144CB-29EF-48D0-B1F8-1D086F54985D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CopyDirectory.Console</RootNamespace>
-    <AssemblyName>CopyDirectory.Console</AssemblyName>
+    <RootNamespace>CopyDirectory.ConsoleApp</RootNamespace>
+    <AssemblyName>CopyDirectory.ConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleLogger.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
