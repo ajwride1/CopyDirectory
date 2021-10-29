@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\DirectoryNotFound.cs" />
     <Compile Include="Exceptions\DirectoryNotGiven.cs" />
+    <Compile Include="IDisplay.cs" />
     <Compile Include="Source.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
