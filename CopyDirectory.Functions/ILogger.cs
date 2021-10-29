@@ -1,6 +1,6 @@
 ﻿namespace CopyDirectory.Functions
 {
-    public interface IDisplay
+    public interface ILogger
     {
         void Print(string message);
     }
