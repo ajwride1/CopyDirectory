@@ -27,10 +27,11 @@ namespace CopyDirectory.ConsoleApp
                 {
                     try
                     {
-                        if (!repeat)
-                            Console.WriteLine("Let's start by selecting the source directory, please type out the source directory below");
-                        else
-                            Console.WriteLine("Let's try again, please type out the source directory below");
+                        _WriteSeparator();
+
+                        Console.WriteLine(!repeat
+                            ? "Let's start by selecting the source directory, please type out the source directory below"
+                            : "Let's try again, please type out the source directory below");
 
                         string sourceDirectoryPath = Console.ReadLine();
 
@@ -48,6 +49,7 @@ namespace CopyDirectory.ConsoleApp
                                 rawConfirmation == "1")
                             {
                                 Console.WriteLine($"You have confirmed the source directory as {sourceDirectory.Info.FullName}");
+                                _CopySourceDirectory(sourceDirectory);
                                 validDirectory = true;
                             }
                             else
@@ -83,6 +85,45 @@ namespace CopyDirectory.ConsoleApp
         private static void _WriteSeparator()
         {
             Console.WriteLine("======================================================");
+        }
+
+        private static async void _CopySourceDirectory(Source sourceDirectory)
+        {
+            _WriteSeparator();
+            Console.WriteLine("Now we need to take a target directory to copy the details from your source directory: ");
+            Console.WriteLine(sourceDirectory.Info.FullName);
+            _WriteSeparator();
+
+            bool validDirectory = false;
+
+            while (!validDirectory)
+            {
+                Console.WriteLine("Please enter your target directory below");
+
+                string targetDirectory = Console.ReadLine();
+
+                Console.WriteLine($"Target directory selected : {sourceDirectory.Info.FullName}");
+                Console.WriteLine("Please type yes or no to confirm whether or not this is the correct directory");
+                string rawConfirmation = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(rawConfirmation))
+                    Console.WriteLine("Unable to determine if the selected directory was confirmed");
+                else
+                {
+                    if (rawConfirmation.ToUpper() == "Y" || rawConfirmation.ToUpper() == "YES" ||
+                        rawConfirmation == "1")
+                    {
+                        Console.WriteLine($"You have confirmed the target directory as {targetDirectory}");
+                        await sourceDirectory.Copy(targetDirectory, new Logger(), true);
+                        validDirectory = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine(
+                            $"Ok {sourceDirectory.Info.FullName} is not the correct source directory");
+                    }
+                }
+            }
         }
     }
 }
