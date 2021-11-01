@@ -37,18 +37,18 @@ namespace CopyDirectory.Functions
             }
         }
 
-        public async Task Copy(string targetDirectory, ILogger display, bool overwrite = true)
+        public async Task Copy(string targetDirectory, LoggerDelegate display, bool overwrite = true)
         {
             if (Directory.Exists(targetDirectory) && overwrite)
             {
                 Source targetDirectorySource = new Source(targetDirectory);
 
-                display.Print($"Emptying the target directory and all of it's contents : {targetDirectory}");
+                display($"Emptying the target directory and all of it's contents : {targetDirectory}");
 
                 targetDirectorySource.Empty(display);
             }
 
-            display.Print($"Creating the new directory {targetDirectory}");
+            display($"Creating the new directory {targetDirectory}");
 
             Directory.CreateDirectory(targetDirectory);
 
@@ -56,7 +56,7 @@ namespace CopyDirectory.Functions
             {
                 string newSubDirectory = subDirectory.Info.FullName.Replace(this.Info.FullName, targetDirectory);
 
-                display.Print($"Copying from {subDirectory.Info.FullName} to {newSubDirectory}");
+                display($"Copying from {subDirectory.Info.FullName} to {newSubDirectory}");
 
                 await subDirectory.Copy(newSubDirectory, display, overwrite);
             }
@@ -65,13 +65,13 @@ namespace CopyDirectory.Functions
             {
                 string newFileName = file.FullName.Replace(Info.FullName, targetDirectory);
 
-                display.Print($"Copying {file.FullName} to {newFileName}");
+                display($"Copying {file.FullName} to {newFileName}");
 
                 File.Copy(file.FullName, newFileName, overwrite);
             }
         }
 
-        public void Empty(ILogger display)
+        public void Empty(LoggerDelegate display)
         {
             foreach (Source subDirectory in SubDirectories)
             {
@@ -80,7 +80,7 @@ namespace CopyDirectory.Functions
 
             foreach (FileInfo fileInfo in Files)
             {
-                display.Print($"Deleting {fileInfo.FullName}");
+                display($"Deleting {fileInfo.FullName}");
 
                 File.Delete(fileInfo.FullName);
             }

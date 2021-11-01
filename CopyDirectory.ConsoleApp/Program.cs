@@ -114,7 +114,7 @@ namespace CopyDirectory.ConsoleApp
                         rawConfirmation == "1")
                     {
                         Console.WriteLine($"You have confirmed the target directory as {targetDirectory}");
-                        await sourceDirectory.Copy(targetDirectory, new Logger(), true);
+                        await sourceDirectory.Copy(targetDirectory, ConsoleLogger, true);
                         validDirectory = true;
                     }
                     else
@@ -124,6 +124,11 @@ namespace CopyDirectory.ConsoleApp
                     }
                 }
             }
+        }
+
+        public static void ConsoleLogger(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }
